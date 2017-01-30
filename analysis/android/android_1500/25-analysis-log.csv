@@ -1,0 +1,34 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 3046
+[x] Slave process 1 with pid 3047
+     0x0 - 1
+    0xc0 - 1
+   0xe80 - 41
+   0xf00 - 38
+   0xf40 - 46
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 2
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 2
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+[x] Exit status of 3046 was 0

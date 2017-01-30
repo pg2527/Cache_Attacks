@@ -1,0 +1,1 @@
+cmd_/home/user/Documents/Thesis/hello.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.13.0-53-generic/scripts/module-common.lds --build-id  -o /home/user/Documents/Thesis/hello.ko /home/user/Documents/Thesis/hello.o /home/user/Documents/Thesis/hello.mod.o

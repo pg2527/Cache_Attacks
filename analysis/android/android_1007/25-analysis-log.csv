@@ -1,0 +1,47 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 8411
+[x] Slave process 1 with pid 8412
+   0x400 - 1
+   0x600 - 1
+   0x640 - 1
+   0x6c0 - 2
+   0x7c0 - 2
+   0xb00 - 1
+   0xc00 - 2
+   0xc80 - 1
+   0xe00 - 1
+   0xe80 - 45
+   0xec0 - 37
+   0xf40 - 43
+  0x11c0 - 1
+  0x1300 - 1
+  0x1400 - 1
+  0x14c0 - 1
+  0x15c0 - 1
+  0x1600 - 1
+  0x17c0 - 1
+  0x1d00 - 2
+  0x1d80 - 1
+  0x4240 - 1
+  0x4240 - 1
+  0x5280 - 1
+  0x55c0 - 2
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 2
+  0x55c0 - 1
+  0x55c0 - 1
+  0x55c0 - 1
+[x] Exit status of 8411 was 0

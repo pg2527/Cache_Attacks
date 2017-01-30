@@ -1,0 +1,22 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 6124
+[x] Slave process 1 with pid 6125
+   0xe80 - 46
+   0xf40 - 48
+  0x3000 - 3
+  0x3200 - 3
+  0x3440 - 2
+  0x3640 - 3
+  0x3840 - 1
+  0x3a80 - 3
+  0x3c80 - 4
+  0x3e80 - 2
+  0x42c0 - 14
+  0x4880 - 1
+  0x5200 - 1
+  0x5440 - 2
+[x] Exit status of 6124 was 0

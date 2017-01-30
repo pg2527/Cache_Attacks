@@ -1,0 +1,29 @@
+[x] Start calibration... 250
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 17824
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 7519
+[x] Slave process 1 with pid 7520
+   0x440 - 2
+   0x480 - 4
+   0x500 - 2
+   0x540 - 2
+   0x600 - 1
+   0x640 - 1
+   0x680 - 2
+   0x700 - 3
+   0x740 - 5
+   0x780 - 1
+   0x7c0 - 2
+   0xa00 - 2
+   0xc00 - 1
+   0xc40 - 1
+   0xd00 - 3
+   0xd40 - 2
+   0xe80 - 42
+   0xec0 - 41
+   0xf00 - 39
+   0xf40 - 45
+[x] Exit status of 7519 was 0

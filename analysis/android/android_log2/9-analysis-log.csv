@@ -1,0 +1,12 @@
+[x] Start calibration... 233
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 17824
+[x] Threshold: 233
+[x] Spy-mode: no
+[x] Slave process 1 with pid 5269
+[x] Master process 0 with pid 5268
+   0xec0 - 49
+   0xf00 - 41
+   0xf40 - 49
+[x] Exit status of 5268 was 0

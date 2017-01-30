@@ -1,0 +1,38 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 10422
+[x] Slave process 1 with pid 10423
+   0xec0 - 41
+   0xf00 - 22
+   0xf40 - 40
+  0x1000 - 1
+  0x1580 - 1
+  0x1600 - 2
+  0x1780 - 1
+  0x1c80 - 1
+  0x32c0 - 1
+  0x32c0 - 1
+  0x32c0 - 1
+  0x32c0 - 1
+  0x32c0 - 1
+  0x32c0 - 4
+  0x32c0 - 2
+  0x32c0 - 1
+  0x32c0 - 3
+  0x32c0 - 1
+  0x32c0 - 1
+  0x32c0 - 1
+  0x32c0 - 1
+  0x3600 - 1
+  0x3600 - 1
+  0x3600 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 6
+  0x3940 - 1
+  0x4500 - 35
+  0x55c0 - 1
+[x] Exit status of 10422 was 0

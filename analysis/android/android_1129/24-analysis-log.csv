@@ -1,0 +1,26 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 19189
+[x] Slave process 1 with pid 19190
+   0xe80 - 51
+   0xe80 - 40
+   0xe80 - 43
+   0xe80 - 46
+   0xec0 - 38
+   0xec0 - 48
+   0xec0 - 44
+   0xec0 - 42
+   0xf00 - 50
+   0xf00 - 45
+   0xf00 - 42
+   0xf00 - 42
+   0xf40 - 47
+   0xf40 - 46
+   0xf40 - 40
+   0xf40 - 46
+   0xf40 - 43
+  0x41c0 - 1
+[x] Exit status of 19189 was 0

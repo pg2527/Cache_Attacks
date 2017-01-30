@@ -1,0 +1,18 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 31143
+[x] Slave process 1 with pid 31146
+   0x100 - 1
+   0xec0 - 50
+  0x3240 - 7
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 1
+  0x4700 - 1
+  0x4740 - 1
+  0x4740 - 1
+  0x4740 - 1
+[x] Exit status of 31143 was 0

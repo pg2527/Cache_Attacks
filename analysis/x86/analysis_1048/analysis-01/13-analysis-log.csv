@@ -1,0 +1,28 @@
+[x] Start calibration... 250
+[x] Filename: /home/user/parul/veda courseware/LinuxPro/lib/libxyz.so
+[x] Offset: 0
+[x] Range: 24384
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 3746
+[x] Slave process 1 with pid 3747
+   0x700 - 14
+   0x700 - 6
+   0x700 - 11
+   0x700 - 8
+   0x700 - 2
+   0x700 - 8
+   0x700 - 8
+   0x700 - 4
+   0x700 - 6
+   0x740 - 2
+  0x20c0 - 8
+  0x20c0 - 13
+  0x20c0 - 8
+  0x20c0 - 16
+  0x20c0 - 3
+  0x20c0 - 22
+  0x20c0 - 19
+  0x20c0 - 11
+  0x20c0 - 4
+[x] Exit status of 3746 was 0

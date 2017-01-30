@@ -1,0 +1,29 @@
+[x] Start calibration... 208
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 17824
+[x] Threshold: 208
+[x] Spy-mode: no
+[x] Master process 0 with pid 19132
+[x] Slave process 1 with pid 19133
+   0xe80 - 17
+   0xec0 - 20
+   0xf00 - 24
+   0xf40 - 20
+  0x26c0 - 1
+  0x3900 - 1
+  0x3900 - 1
+  0x3900 - 1
+  0x3900 - 1
+  0x3900 - 1
+  0x3900 - 1
+  0x3900 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 1
+  0x3940 - 1
+[x] Exit status of 19132 was 0

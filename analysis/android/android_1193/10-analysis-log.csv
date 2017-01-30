@@ -1,0 +1,10 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 9917
+[x] Slave process 1 with pid 9918
+   0xe80 - 35
+   0xf40 - 46
+[x] Exit status of 9917 was 0

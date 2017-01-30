@@ -1,0 +1,11 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 11057
+[x] Slave process 1 with pid 11058
+   0xec0 - 41
+   0xf00 - 40
+  0x14c0 - 1
+  0x2e40 - 1

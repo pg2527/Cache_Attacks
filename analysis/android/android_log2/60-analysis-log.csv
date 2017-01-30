@@ -1,0 +1,14 @@
+[x] Start calibration... 243
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 17824
+[x] Threshold: 243
+[x] Spy-mode: no
+[x] Master process 0 with pid 9826
+[x] Slave process 1 with pid 9827
+   0xe80 - 31
+   0xf00 - 40
+   0xf40 - 54
+  0x2ac0 - 1
+  0x2c40 - 2
+  0x3700 - 1

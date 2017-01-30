@@ -1,0 +1,13 @@
+[x] Filename: /data/local/tmp/test2/libtest.so
+[x] Offset: 0
+[x] Range: 21920
+[x] Threshold: 250
+[x] Spy-mode: no
+[x] Master process 0 with pid 21897
+   0xe80 - 27
+   0xf00 - 23
+   0xf40 - 27
+  0x1c00 - 10
+  0x1c00 - 2
+  0x4f00 - 37
+[x] Exit status of 21897 was 0
