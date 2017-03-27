@@ -3,6 +3,7 @@
 #include <linux/smp.h>
 #include <asm/smp.h>
 #include <asm/cacheflush.h>
+///#include <mm/cache-v7.s>
 #include <linux/proc_fs.h>
 #include <linux/miscdevice.h>
 #include <linux/fs.h>
@@ -18,6 +19,10 @@
 #define procfs_name "mydriver" // /dev/mydriver
 #define FLUSHALL 3
 
+#define ARMV7_DCACHE_INVAL_ALL 1
+#define ARMV7_DCACHE_CLEAN_INVAL_ALL 2
+#define ARMV7_INVAL_RANGE 3
+#define ARMV7_DCACHE_CLEAN_INVAL_RANGE 4
 #define ARMV7_CCNT      31  /* Cycle counter */
 #define ENABLE_CNTR (1 << ARMV7_CCNT)
 #define ARMV7_PMNC_E        (1 << 0) /* Enable all counters */
@@ -28,13 +33,15 @@
 #error Module can only be compiled on ARM machines.
 #endif
 
+struct cpu_cache_fns v7_cache_fns;
 extern long simple_strtol(const char *,char **,unsigned int);
 void memory_exit(void);
 int memory_init(void);
 int memory_open(struct inode *inode, struct file *filp); 
 int memory_release(struct inode *inode, struct file *filp); 
 ssize_t memory_read(struct file *filp, char *buf,size_t count, loff_t *f_pos);
-ssize_t memory_write( struct file *filp, char *buf,size_t count, loff_t *f_pos);
+ssize_t memory_write( struct file *filp,const char *buf,size_t count, loff_t *f_pos);
+//static int mydriver_device_open(struct inode *inode, struct file *file);
 
 
 /* Structure that declares the usual file */
@@ -43,6 +50,7 @@ struct file_operations memory_fops = {
   read: memory_read,
   open: memory_open,
   release: memory_release,
+  write: memory_write,
 };
 
 /* Global variables of the driver */
@@ -79,16 +87,17 @@ ssize_t memory_read(struct file *filp, char *buf,
  return num;
 }
 
-ssize_t memory_write( struct file *filp, char *buf,
+ssize_t memory_write( struct file *filp, const char *buf,
                       size_t count, loff_t *f_pos) {
 
-  char *tmp;
+  //char *tmp;
   char *endptr;
   char ret;
 
-  tmp=buf+count-1;
-  num2 =copy_from_user(memory_buffer,tmp,1);
+  //tmp=buf+count-1;
+  num2 =copy_from_user(memory_buffer,buf,1);
   ret = simple_strtol(memory_buffer, &endptr, 10);
+  printk("KERN_INFO value sent by the user%d\n",ret);
   if(endptr == NULL)
   {
       printk(" KERN_INFO  Failed to read an integer!\n");
@@ -97,8 +106,12 @@ ssize_t memory_write( struct file *filp, char *buf,
   {
       if(ret == FLUSHALL)
       {
-            printk("KERN_INFO  FLUSH CACHE ALL");
             flush_cache_all();
+	       // v7_cache_fns.flush_user_all();
+	       //v7_cache_fns.flush_kern_all();
+	 //  int r = 0;
+    	//  asm volatile("mcr p15, 0, %0, c7, c6, 1"::"r"(0));
+ 	  printk("KERN_INFO  FLUSH CACHE ALL");
       }
       
   }
@@ -108,12 +121,13 @@ ssize_t memory_write( struct file *filp, char *buf,
 /* Called when a process tries to open the device file, like
  * "cat /dev/mycharfile"
  */
+
 /*static int mydriver_device_open(struct inode *inode, struct file *file)
 {
     printk(" KERN_INFO opening mydriver device.\n");
     return 0;
-}
-*/
+}*/
+
 static void enable_cpu_counters(void* data)
 {
     printk("KERN_INFO enabling user-mode PMU access on CPU #%d", smp_processor_id());
@@ -123,7 +137,7 @@ static void enable_cpu_counters(void* data)
     asm volatile("mcr p15, 0, %0, c9, c12, 0" : : "r"(ARMV7_PMNC_E));
     asm volatile("mcr p15, 0, %0, c9, c12, 1" : : "r" (ARMV7_CNTENS_C));
 }
-
+ 
 static void disable_cpu_counters(void* data)
 {
 printk("KERN_INFO disabling user-mode PMU access on CPU #%d",smp_processor_id());

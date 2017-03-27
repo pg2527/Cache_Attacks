@@ -45,7 +45,7 @@ void cleanup_module(void)
     on_each_cpu(disable_cpu_counters, NULL, 1);
 }
 
-MODULE_AUTHOR("razaina.");
+MODULE_AUTHOR("Parul");
 MODULE_LICENSE("GPL");
 MODULE_VERSION("1");
 MODULE_DESCRIPTION("Enables user-mode access to ARMv7 PMU counters");

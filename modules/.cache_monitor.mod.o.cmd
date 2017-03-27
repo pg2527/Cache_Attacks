@@ -1,8 +1,8 @@
-cmd_/home/user/Documents/Thesis/modules/cache_monitor.mod.o := /usr/src/android/kernel/scripts/gcc-wrapper.py /home/user/Desktop/arm-eabi-4.6/bin/arm-eabi-gcc -Wp,-MD,/home/user/Documents/Thesis/modules/.cache_monitor.mod.o.d  -nostdinc -isystem /home/user/Desktop/arm-eabi-4.6/bin/../lib/gcc/arm-eabi/4.6.x-google/include -I/usr/src/android/kernel/arch/arm/include -Iarch/arm/include/generated -Iinclude  -include /usr/src/android/kernel/include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Iarch/arm/mach-msm/include -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -O2 -marm -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fstack-protector -mabi=aapcs-linux -mno-thumb-interwork -funwind-tables -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -Wframe-larger-than=1024 -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(cache_monitor.mod)"  -D"KBUILD_MODNAME=KBUILD_STR(cache_monitor)" -DMODULE  -c -o /home/user/Documents/Thesis/modules/cache_monitor.mod.o /home/user/Documents/Thesis/modules/cache_monitor.mod.c
+cmd_/home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o := /usr/src/android/kernel/scripts/gcc-wrapper.py /usr/local/share/arm-eabi-4.6/bin/arm-eabi-gcc -Wp,-MD,/home/parul/Documents/Cache_Attacks/modules/.cache_monitor.mod.o.d  -nostdinc -isystem /usr/local/share/arm-eabi-4.6/bin/../lib/gcc/arm-eabi/4.6.x-google/include -I/usr/src/android/kernel/arch/arm/include -Iarch/arm/include/generated -Iinclude  -include /usr/src/android/kernel/include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Iarch/arm/mach-msm/include -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -O2 -marm -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fstack-protector -mabi=aapcs-linux -mno-thumb-interwork -funwind-tables -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -Wframe-larger-than=1024 -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(cache_monitor.mod)"  -D"KBUILD_MODNAME=KBUILD_STR(cache_monitor)" -DMODULE  -c -o /home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o /home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.c
 
-source_/home/user/Documents/Thesis/modules/cache_monitor.mod.o := /home/user/Documents/Thesis/modules/cache_monitor.mod.c
+source_/home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o := /home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.c
 
-deps_/home/user/Documents/Thesis/modules/cache_monitor.mod.o := \
+deps_/home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o := \
     $(wildcard include/config/module/unload.h) \
   include/linux/module.h \
     $(wildcard include/config/sysfs.h) \
@@ -60,7 +60,7 @@ deps_/home/user/Documents/Thesis/modules/cache_monitor.mod.o := \
     $(wildcard include/config/numa.h) \
     $(wildcard include/config/compaction.h) \
   include/linux/sysinfo.h \
-  /home/user/Desktop/arm-eabi-4.6/bin/../lib/gcc/arm-eabi/4.6.x-google/include/stdarg.h \
+  /usr/local/share/arm-eabi-4.6/bin/../lib/gcc/arm-eabi/4.6.x-google/include/stdarg.h \
   include/linux/linkage.h \
   /usr/src/android/kernel/arch/arm/include/asm/linkage.h \
   include/linux/bitops.h \
@@ -385,6 +385,6 @@ deps_/home/user/Documents/Thesis/modules/cache_monitor.mod.o := \
   include/linux/vermagic.h \
   include/generated/utsrelease.h \
 
-/home/user/Documents/Thesis/modules/cache_monitor.mod.o: $(deps_/home/user/Documents/Thesis/modules/cache_monitor.mod.o)
+/home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o: $(deps_/home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o)
 
-$(deps_/home/user/Documents/Thesis/modules/cache_monitor.mod.o):
+$(deps_/home/parul/Documents/Cache_Attacks/modules/cache_monitor.mod.o):

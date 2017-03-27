@@ -1,0 +1,1 @@
+cmd_/home/parul/Documents/Cache_Attacks/modules/perf_monitor.ko := /usr/local/share/arm-eabi-4.6/bin/arm-eabi-ld -EL -r  -T /usr/src/android/kernel/scripts/module-common.lds --build-id  -o /home/parul/Documents/Cache_Attacks/modules/perf_monitor.ko /home/parul/Documents/Cache_Attacks/modules/perf_monitor.o /home/parul/Documents/Cache_Attacks/modules/perf_monitor.mod.o

